@@ -31,6 +31,15 @@ _allowed_inputs = {
     QUIT: ['q']
 }
 
+GRAVITY = 1.01
+JUMP_GRAVITY = .31
+JUMP_VEL = -10
+FAST_JUMP_VEL = -12.5
+MAX_Y_VEL = 11
+
+JUMP = 'jump'
+FALL = 'fall'
+WALK = 'walk'
 
 def get_key(key):
     for x in _allowed_inputs:
@@ -104,3 +113,4 @@ def get_input(timeout=1):
         pass
     signal.signal(signal.SIGALRM, signal.SIG_IGN)
     return ''
+

@@ -120,11 +120,11 @@ class Board:
         res = False
         if key_press in config.DIR:
             x, y = player.get_coords()
-            # if key_press == config.UP:
-                # y -= config.y_fac
-            # elif key_press == config.DOWN:
-                # y += config.y_fac
-            if key_press == config.LEFT:
+            if key_press == config.UP:
+                y -= config.y_fac
+            elif key_press == config.DOWN:
+                y += config.y_fac
+            elif key_press == config.LEFT:
                 x -= config.x_fac
             elif key_press == config.RIGHT:
                 x += config.x_fac
