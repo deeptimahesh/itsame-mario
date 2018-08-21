@@ -18,6 +18,19 @@ def main():
         print("Yay, he woke up!")
         sleep(1)
         bd.render()
+        while a=='r':
+            p_input = config.get_key(config.get_input())
+
+            if p_input == config.QUIT:
+                break
+
+            # cur_round = datetime.datetime.now()
+            bd.process_input(player, p_input)
+            """ if (cur_round - prev_round) >= datetime.timedelta(seconds=1):
+                # bd.update_frame()
+                # prev_round = cur_round"""
+
+            bd.render()
 
         a = config._getch()
         system('reset')

@@ -32,6 +32,16 @@ class Person(object):
         # returns (x, y)
         return self._x, self._y
 
+    def update_location(self, board, new_x, new_y, init=False):
+        # update the location of the person
+        if board.draw_obj(type(self)(new_x, new_y)):
+            # if initial update, will not clear original
+            if not init:
+                board.clear_obj(self)
+            self._x, self._y = new_x, new_y
+            return True
+        return False
+
 
 class Mario(Person):
     def __init__(self, x, y, lives=3):

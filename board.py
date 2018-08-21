@@ -8,6 +8,7 @@ from config import x_fac, y_fac
 import numpy as np
 import config
 from objects import Ground
+import person
 
 
 class Board:
@@ -77,8 +78,34 @@ class Board:
         self.init_board(self, reset)
         # self.clear_storage()
 
+    def draw_obj(self, obj):
+        # draws the object on the board
+        if self.path_check(obj):
+            height, width = obj.get_size()
+            x, y = obj.get_coords()
+            self._b[y - 1: y - 1 + height, x - 1: x - 1 + width] = obj.structure
+            return True
+
+        return False
+
+    def path_check(self, obj):
+        # check if new binding space is occupied else if occupied'''
+
+        # height, width = obj.get_size()
+        # x_pos, y_pos = obj.get_coords()
+        return True
+
+    def clear_obj(self, obj):
+        # clears the object from the board by an object'''
+        if obj.get_type() != config.types[config._ground]:
+            height, width = obj.get_size()
+            x, y = obj.get_coords()
+            self._b[y - 1: y - 1 + height, x - 1: x - 1 + width] = config._empty
+            return True
+        return False
+
     def spawn(self, obj):
-        '''# method to spawn the main player'''
+        # method to spawn the main player'''
         if obj.get_type() == config.types[config._mario]:
             height, width = obj.get_size()
             x, y = obj.get_coords()
@@ -88,6 +115,21 @@ class Board:
         else:
             print("Can't spawn")
             return False
+
+    def process_input(self, player, key_press):
+        res = False
+        if key_press in config.DIR:
+            x, y = player.get_coords()
+            # if key_press == config.UP:
+                # y -= config.y_fac
+            # elif key_press == config.DOWN:
+                # y += config.y_fac
+            if key_press == config.LEFT:
+                x -= config.x_fac
+            elif key_press == config.RIGHT:
+                x += config.x_fac
+            res = player.update_location(self, x, y)
+        return res
 
     def render(self):
         # display board at every frame
