@@ -32,17 +32,19 @@ def main():
                     inter_input = config.get_key(config.get_input())
                     if inter_input == config.LEFT or inter_input == config.RIGHT:
                         bd.process_input(player, inter_input)
-                        bd.render()
+
                     #sleep(0.1)
                     i = i - 1
 
                 while i > 0:
+                    if i == 2:
+                        sleep(0.2)
                     bd.process_input(player, config.DOWN)
                     bd.render()
                     # inter_input = config.get_key(config.get_input())
                     # bd.process_input(player, inter_input)
                     # bd.render()
-                    sleep(0.2)
+                    sleep(0.1)
                     i = i - 1
 
             # cur_round = datetime.datetime.now()

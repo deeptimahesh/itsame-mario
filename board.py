@@ -62,7 +62,7 @@ class Board:
         # create the inital points for spawning objects
         # subtracting two edge blocks for each top bottom
         # and dividing by two for range of motion
-        fp = (5, 3)
+        '''fp = (5, 3)
         # each object is 4 px wide
         total_block_x = int((self.width / config.x_fac - 2) / 2 + 1)
         # each object is 2px tall
@@ -70,8 +70,8 @@ class Board:
         for r in range(total_block_x):
             for c in range(total_block_y):
                 self.init_points.append((fp[0] + r * (2 * config.x_fac), fp[-1] + c * (2 * config.y_fac)))
-
-        self.init_points = list(set(self.init_points))
+            '''
+        # self.init_points = list(set(self.init_points))
 
     def reset_board(self):
         reset = True

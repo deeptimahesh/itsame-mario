@@ -6,12 +6,16 @@ _ground = "X"
 _bricks = "/"
 _mario = "M"
 _empty = " "
+_question = "?"
+_pipe = '|'
 
 types = {
     _empty: "Unassigned",
 
     _ground: "Ground",
     _bricks: "Bricks",
+    _question: "Question",
+    _pipe: "Pipe",
 
     _mario: "Mario"
 }
@@ -31,15 +35,6 @@ _allowed_inputs = {
     QUIT: ['q']
 }
 
-GRAVITY = 1.01
-JUMP_GRAVITY = .31
-JUMP_VEL = -10
-FAST_JUMP_VEL = -12.5
-MAX_Y_VEL = 11
-
-JUMP = 'jump'
-FALL = 'fall'
-WALK = 'walk'
 
 def get_key(key):
     for x in _allowed_inputs:
@@ -114,3 +109,18 @@ def get_input(timeout=1):
     signal.signal(signal.SIGALRM, signal.SIG_IGN)
     return ''
 
+def getcc(ch):
+    try:
+        if ch == _empty:
+            return Back.BLUE
+        elif ch == _ground:
+            return Back.GREEN
+        elif ch == _bricks:
+            return Back.BLACK
+        elif ch == _question:
+            return Back.YELLOW
+        else:
+            return None
+
+    except KeyError:
+        return ch

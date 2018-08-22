@@ -15,7 +15,6 @@ class Person(object):
         self._ch = ch
         self._type = config.types[self._ch]
         self.is_killable = True
-        self.state = config.WALK
 
     '''def setPosition(self, x, y):
         self.x = x
@@ -55,13 +54,5 @@ class Mario(Person):
         self.structure[:, :] = temp_skel
         self.lives = lives
         self.score = 0
-        self.jump_vel = config.JUMP_VEL
-        self.gravity = config.GRAVITY
-
-    def jumping(self):
-        self.frame_index = 4
-        self.gravity = c.JUMP_GRAVITY
-        self.y_vel += self.gravity
-        del temp_skel
 
 

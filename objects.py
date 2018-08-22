@@ -52,8 +52,54 @@ class Ground(Object):
             return ""
 
 
+class Brick(Object):
+    def __init__(self, n, m):
+        super(Brick, self).__init__(n, m, config._bricks)
+        self.height = int(m)
+        self.width = int(n)
+
+    def __repr__(self):
+        """ repr """
+        for r in range(self.height):
+            print("\n")
+            for c in range(self.width):
+                try:
+                    print(self.structure[r, c].decode(), end="")
+                except UnicodeDecodeError:
+                    print(self.structure[r, c], end="")
+            return ""
 
 
+class Question(Object):
+    def __init__(self, n, m):
+        super(Question, self).__init__(n, m, config._question)
+        self.height = int(m)
+        self.width = int(n)
+
+    def __repr__(self):
+        """ repr """
+        for r in range(self.height):
+            print("\n")
+            for c in range(self.width):
+                try:
+                    print(self.structure[r, c].decode(), end="")
+                except UnicodeDecodeError:
+                    print(self.structure[r, c], end="")
+            return ""
+
+
+class Pipe:
+    def __init__(self, x, y, ch = config._pipe):
+        self.height = x
+        self.width = y
+        self._ch = ch
+        self.structure = np.chararray((self.height, self.width))
+        self.structure[:, :] = self._ch
+        self._type =  config.types[self._ch]
+
+    def get_size(self):
+        """# returns (height, width)"""
+        return self.structure.shape
 
 
 
