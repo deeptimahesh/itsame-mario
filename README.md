@@ -5,11 +5,15 @@
 This game has been written using common Python libraries and also, __Numpy__ library for 
 board rendering and __Colorama__ lib for adding background, foreground and/or style.
 
+Collision with enemy reduces one of three given lives.
+Avoid enemies to reach end of game. 
+
 ###Structure
 This game's code demonstrates inheritance, encapsulation, polymorphism and overloading.
 * __Board__ has its own class and captures all objects to be rendered. Made using Numpy.
 * Each player/enemy is derived of __Person__ class
 * Many objects such as bricks, pipes, etc are of __Object__ class
+* Enemies are __randomly generated__ and don't have fixed direction.
 
 ###Running the program
 
