@@ -101,7 +101,15 @@ class Pipe:
         """# returns (height, width)"""
         return self.structure.shape
 
-# class Coin:
-    # def __init__(self,):
+class Coin:
+    def __init__(self, x, y, ch = config._coin):
+        self._x = x
+        self._y = y
+        self._ch = ch
+        self.structure = 'O'
+        self._type = config.types[self._ch]
 
+    def update_lacation(self, x, y):
+        self._x = x
+        self._y = y
 

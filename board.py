@@ -8,7 +8,7 @@ from config import x_fac, y_fac
 import numpy as np
 import config
 import random
-from objects import Ground, Brick, Question, Pipe
+from objects import Ground, Brick, Question, Pipe, Coin
 from colorama import *
 import person
 
@@ -29,7 +29,8 @@ class Board:
 
         self._storage = {
             # config.types[config._bricks]: [],
-            config.types[config._enemy]: []
+            config.types[config._enemy]: [],
+            config.types[config._coin]: []
         }
 
         self.players = []
@@ -114,7 +115,7 @@ class Board:
         self._b[-2 - p_height:-2, 117:117 + p_width] = pipe
 
         self._b[-10:-8, 138:138 + b_width] = brick
-        self._b[-2:, 147:147+w_width] = noground
+        self._b[-2:, 147:147 + w_width] = noground
         self._b[-2:, 150:150 + w_width] = noground
         self._b[-2:, 153:153 + w_width] = noground
 
@@ -180,6 +181,12 @@ class Board:
         for i in range(2):
             self._b[-10 - b_height:-10, 336 + (3 * i):336 + (3 * i) + b_width] = brick
         self._b[-12 - b_height:-12, 339:339 + b_width] = brick
+
+        p = Pipe(8, 6)
+        p_height, p_width = p.get_size()
+        pipe, pipe[:, :] = np.chararray((p_height, p_width)), config._pipe
+
+        self._b[-2 - p_height: -2,360: 360 + p_width] = pipe
         # DYING A SLOW DEATH
         # create the inital points for spawning objects
         # subtracting two edge blocks for each top bottom
@@ -264,8 +271,8 @@ class Board:
         if obj.get_type() == config.types[config._mario]:
             height, width = obj.get_size()
             x, y = obj.get_coords()
-            print(x)  # 3
-            print(y)  # 21
+            # print(x)  # 3
+            # print(y)  # 21
             x, y = x - 1, y - 1  # 2,20
             self._b[y: y + height, x: x + width] = obj.structure
             self.players.append(obj)
@@ -378,6 +385,8 @@ class Board:
                         sys.stdout.write(Back.MAGENTA + temp_board[row, col].decode())
                     elif temp_board[row, col].decode() == 'E':
                         sys.stdout.write(Back.CYAN + temp_board[row, col].decode())
+                    elif temp_board[row, col].decode() == 'O':
+                        sys.stdout.write(Back.WHITE + temp_board[row, col].decode())
                 except BaseException:
                     sys.stdout.write(temp_board[row, col])
             sys.stdout.write("\n")

@@ -9,6 +9,7 @@ _enemy = "E"
 _empty = " "
 _question = "?"
 _pipe = '|'
+_coin = 'O'
 
 types = {
     _empty: "Unassigned",
@@ -17,6 +18,7 @@ types = {
     _bricks: "Bricks",
     _question: "Question",
     _pipe: "Pipe",
+    _coin: "Coin",
 
     _mario: "Mario",
     _enemy: "Enemy"

@@ -7,12 +7,15 @@ from time import sleep
 import config
 from os import system
 import datetime
+from objects import Coin
 from colorama import *
 import sys
 
 
 def main():
     height, width = (24, 76)
+    quit = False
+    won = False
     print("Waking up Mario ...")
     sleep(2)
     print("Yay, he woke up!")
@@ -24,9 +27,11 @@ def main():
         # while (player.lives > 0):
         bd.spawn(player)
 
-        ls = spawn(config._enemy, bd)
 
-        if ls == False:
+        ls = spawn(config._enemy, bd)
+        # ck = spawn_coins(config._coin, bd)
+
+        if ls == False: # or ck == False:
             print("Object Spawn Error")
             return False
 
@@ -57,6 +62,7 @@ def main():
                 print(Fore.BLUE + "Quitting game because you're a sore loser ...")
                 print("Resetting your clock ...")
                 print(Style.RESET_ALL)
+                quit = True
                 break
             cur_round = datetime.datetime.now()
             if (cur_round - prev_round) >= datetime.timedelta(seconds=1):
@@ -125,6 +131,13 @@ def main():
                 sys.stdout.write(exc.args[0])
                 break
 
+
+            if player.get_xcoords() >= 360:
+                won = True
+                sys.stdout.write(Fore.RED + Style.BRIGHT + Back.BLACK + "YOU BEAT THE GAME")
+                print(Style.RESET_ALL)
+                break
+
                 # sleep(0.1)
                 # bd.render()
             """ if (cur_round - prev_round) >= datetime.timedelta(seconds=1):
@@ -135,13 +148,18 @@ def main():
                 x = x + 6
                 bd.render(x, x + 76)
 
-        if player.lives > 0:
-            sys.stdout.write(Fore.BLUE + "TIME'S UP")
+        if player.lives > 0 and won == False:
+            sys.stdout.write(Fore.BLUE + "TIME'S UP\n")
         sleep(2)
         bd.clear_storage()
 
+        player.score = (100 - (datetime.datetime.now() - st_time).total_seconds()) * 384
+
         for player in bd.players:
-            sys.stdout.write(Fore.RED + "PLAYER SCORE: %d" % player.score)
+            if quit:
+                sys.stdout.write(Fore.RED + "PLAYER SCORE: 0")
+            else:
+                sys.stdout.write(Fore.RED + "PLAYER SCORE: %d" % player.score)
         print(Style.RESET_ALL)
 
         print("Press 'r' to RESTART")
@@ -163,7 +181,22 @@ def spawn(typ, board):
                 break
             run_count += 1
         board.add_storage(e)
+
     return True
+
+'''def spawn_coins(typ, board):
+    for _ in range(10):
+        x, y = (1,1)
+        if typ == config._coin:
+            e = Coin(x, y)
+        else:
+            return False
+        while True:
+            new_x, new_y = random.choice(board.init_points)
+            board[new_x,new_y] = config._coin
+            break
+        board.add_storage(e)
+'''
 
 
 if __name__ == '__main__':
