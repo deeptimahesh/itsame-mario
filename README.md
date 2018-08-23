@@ -1,4 +1,4 @@
-#Python terminal Super Mario Bros
+# Python terminal Super Mario Bros
 ## itsame-mario
 
 ### Introduction
