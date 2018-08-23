@@ -5,7 +5,7 @@ import config
 import numpy as np
 
 
-class Person(object):
+class Person:
     def __init__(self, x, y, ch=config._empty):
         self._x = x
         self._y = y
@@ -40,12 +40,15 @@ class Person(object):
 
     def update_location(self, board, new_x, new_y, init=False):
         # update the location of the person
-        if board.draw_obj(type(self)(new_x, new_y)):
-            # if initial update, will not clear original
-            if not init:
-                board.clear_obj(self)
-            self._x, self._y = new_x, new_y
-            return True
+        try:
+            if board.draw_obj(type(self)(new_x, new_y)):
+                # if initial update, will not clear original
+                if not init:
+                    board.clear_obj(self)
+                self._x, self._y = new_x, new_y
+                return True
+        except ValueError:
+            return False
         return False
 
 
@@ -57,5 +60,13 @@ class Mario(Person):
         self.structure[:, :] = temp_skel
         self.lives = lives
         self.score = 0
+
+
+class Enemies(Person):
+    def __init__(self, x, y):
+        super(Enemies, self).__init__(x, y, config._enemy)
+        temp_skel = np.matrix([['/', self._ch, self._ch, '\\'], [config._empty, '|', '|', config._empty]])
+        self.structure[:, :] = temp_skel
+        del temp_skel
 
 

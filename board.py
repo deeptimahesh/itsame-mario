@@ -7,6 +7,7 @@ from os import system
 from config import x_fac, y_fac
 import numpy as np
 import config
+import random
 from objects import Ground, Brick, Question, Pipe
 from colorama import *
 import person
@@ -26,11 +27,12 @@ class Board:
 
         self.init_board()
 
-        '''self._storage = {
-            config.types[config._bomb]: [],
-            config.types[config._bricks]: [],
+        self._storage = {
+            # config.types[config._bricks]: [],
             config.types[config._enemy]: []
-        }'''
+        }
+
+        self.players = []
 
     '''def init_board(self, reset=False):
         if reset:
@@ -61,18 +63,8 @@ class Board:
 
         # create the inital points for spawning objects
         # subtracting two edge blocks for each top bottom
-        # and dividing by two for range of motion
-        fp = (5, 3)
-        # each object is 4 px wide
-        total_block_x = int((self.width / config.x_fac - 2) / 2 + 1)
-        # each object is 2px tall
-        total_block_y = int((self.height / config.y_fac - 2) / 2 + 1)
-        for r in range(total_block_x):
-            for c in range(total_block_y):
-                self.init_points.append((fp[0] + r * (2 * config.x_fac), fp[-1] + c * (2 * config.y_fac)))
-            
-        self.init_points = list(set(self.init_points))
-    '''
+        # and dividing by two for range of motion'''
+
     def init_board(self, reset=False):
         if reset:
             self.frame_counter = 0
@@ -192,7 +184,7 @@ class Board:
         # create the inital points for spawning objects
         # subtracting two edge blocks for each top bottom
         # and dividing by two for range of motion
-        '''fp = (5, 3)
+        fp = (5, 3)
         # each object is 4 px wide
         total_block_x = int((self.width / config.x_fac - 2) / 2 + 1)
         # each object is 2px tall
@@ -200,12 +192,13 @@ class Board:
         for r in range(total_block_x):
             for c in range(total_block_y):
                 self.init_points.append((fp[0] + r * (2 * config.x_fac), fp[-1] + c * (2 * config.y_fac)))
-            '''
-        # self.init_points = list(set(self.init_points))
+
+        self.init_points = list(set(self.init_points))
 
     def reset_board(self):
         reset = True
-        self.init_board(self, reset)
+        self.init_board(reset)
+        self.clear_storage()
         # self.clear_storage()
 
     def draw_obj(self, obj):
@@ -227,6 +220,34 @@ class Board:
         emp_comp = np.chararray(obj.get_size())
 
         emp_comp[:, :] = config._empty
+
+        if obj.get_type() == config.types[config._enemy]:
+            for player in self.players:
+                x, y = player.get_coords()
+                x1, y1 = obj.get_coords()
+                x = x + 6
+                if x == x1 and y == y1:
+                    player.lives -= 1
+                    return True
+                x = x - 6
+                if x == x1 and y == y1:
+                    player.lives -= 1
+                    return True
+
+        elif obj in self.players:
+            for enemy in self._storage[config.types[config._enemy]]:
+                x, y = obj.get_coords()
+                x1, y1 = enemy.get_coords()
+                x = x + 6
+                if x==x1 and y==y1:
+                    # if obj.get_coords() == enemy.get_coords():
+                    obj.lives -= 1
+                    return True
+                x = x - 6
+                if x == x1 and y == y1:
+                    obj.lives -= 1
+                    return True
+
         return np.all(self._b[y_pos - 1: y_pos - 1 + height, x_pos - 1: x_pos - 1 + width] == emp_comp)
 
     def clear_obj(self, obj):
@@ -247,6 +268,7 @@ class Board:
             print(y)  # 21
             x, y = x - 1, y - 1  # 2,20
             self._b[y: y + height, x: x + width] = obj.structure
+            self.players.append(obj)
             return True
         else:
             print("Can't spawn")
@@ -274,6 +296,39 @@ class Board:
             res = player.update_location(self, x, y)
         return res
 
+    def update_frame(self):
+        for _ in self._storage[config.types[config._enemy]]:
+            _dir = random.choice(config.DIR)
+            self.process_input(_, _dir)
+
+        self.frame_counter += 1
+
+    def add_storage(self, obj):
+        try:
+            if obj not in self._storage[obj.get_type()]:
+                self._storage[obj.get_type()].append(obj)
+                return True
+            else:
+                return None
+        except KeyError:
+            return False
+
+    def clear_storage(self, obj=None):
+        '''# clear the objects on the board at every instance'''
+        if obj is None:
+            for object_type in self._storage:
+                for object_ in self._storage[object_type]:
+                    del object_
+                self._storage[object_type] = []
+            return True
+        else:
+            typ = obj.get_type()
+            try:
+                self._storage[typ].remove(obj)
+                return True
+            except BaseException:
+                return False
+
     '''def render(self, x, y):
         # display board at every frame
         sys.stdout.flush()
@@ -291,6 +346,12 @@ class Board:
                     sys.stdout.write(temp_board[row, col])
             sys.stdout.write("\n")
         del temp_board'''
+
+    def gameover(self, player):
+        if player.lives == 0:
+            raise Exception(Style.BRIGHT + Fore.RED + "\nNO LIVES LEFT, IT'S GAME OVER, AMIGO")
+        return True
+
     def render(self, x, y):
         # display board at every frame
         sys.stdout.flush()
@@ -315,6 +376,8 @@ class Board:
                         sys.stdout.write(Back.RED + temp_board[row, col].decode())
                     elif temp_board[row, col].decode() == 'M':
                         sys.stdout.write(Back.MAGENTA + temp_board[row, col].decode())
+                    elif temp_board[row, col].decode() == 'E':
+                        sys.stdout.write(Back.CYAN + temp_board[row, col].decode())
                 except BaseException:
                     sys.stdout.write(temp_board[row, col])
             sys.stdout.write("\n")

@@ -10,7 +10,11 @@
 
 BUGS
 >> Up: make it so while(x_coords != width -3)  --> config_down :::: DONE
->> UP: make it go one more up AND go down until brick/ground/pipe/question OR not!empty 
+>> UP: make it go one more up AND go down until brick/ground/pipe/question OR not!empty  ---> DONE
+>> Noground undetected
+>> End of board: what to do
+>> coins/time: add to score
+>> enemies randomly generated
 
 
 ##HARD CODE TWO BOARDS : TWO LEVELS

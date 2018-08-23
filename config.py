@@ -5,6 +5,7 @@
 _ground = "X"
 _bricks = "/"
 _mario = "M"
+_enemy = "E"
 _empty = " "
 _question = "?"
 _pipe = '|'
@@ -17,7 +18,8 @@ types = {
     _question: "Question",
     _pipe: "Pipe",
 
-    _mario: "Mario"
+    _mario: "Mario",
+    _enemy: "Enemy"
 }
 
 x_fac, y_fac = (4, 2)

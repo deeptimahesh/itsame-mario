@@ -101,6 +101,7 @@ class Pipe:
         """# returns (height, width)"""
         return self.structure.shape
 
-
+# class Coin:
+    # def __init__(self,):
 
 
