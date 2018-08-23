@@ -1,44 +1,39 @@
-# itsame-mario
+#Python terminal Super Mario Bros
+## itsame-mario
 
-1) MAKE A BOARD WHICH MOVES : LARGE 2D array? using numpy  (DONE)
-2) Gravity effect (DONE)
-3) Generate enemies (WED)
-4) Design a board: score = coins on top of obstacles
-5) Obstacles randomly generated   (DONE)
-6) 
+### Introduction
+This game has been written using common Python libraries and also, __Numpy__ library for 
+board rendering and __Colorama__ lib for adding background, foreground and/or style.
 
+###Structure
+This game's code demonstrates inheritance, encapsulation, polymorphism and overloading.
+* __Board__ has its own class and captures all objects to be rendered. Made using Numpy.
+* Each player/enemy is derived of __Person__ class
+* Many objects such as bricks, pipes, etc are of __Object__ class
 
-BUGS
->> Up: make it so while(x_coords != width -3)  --> config_down :::: DONE
->> UP: make it go one more up AND go down until brick/ground/pipe/question OR not!empty  ---> DONE
->> Noground undetected
->> End of board: what to do
->> coins/time: add to score
->> enemies randomly generated
+###Running the program
 
+1) Install all the requirements:
 
-##HARD CODE TWO BOARDS : TWO LEVELS
+   ```pip install -r requirements.txt```  
+2) Now, replace first line of main.py with your location of python installation
 
-i. Hardcode obstacles first: for normal sized board, 
-then large size which moves when character reaches say middle of board
+   ```#!/usr/bin/env python```
+3) Run program
+   
+   ```python3 main.py```
 
-ii. Hardcode steps, stairs, bricks in another file, print it out
+###Controls
+* ```A```: Left, ```D```: Right, ```W```: Jump
+* Additionally you can move right/left/up while jumping again
+* To quit, press ```q```
+* To restart game after losing/winning, press ```r```
 
-iii. Pipe at end of level
-
-iv. make it short, it's cool
-
-
-##DEALING WITH MARIO
-i. Colliding when falling down with ground/brick should be easy: interrupt config.DOWN so he stays 
-wherever he is. If no brick or ground encountered -> keep falling
-
-ii. Reaches end of board <- deal with that
-
-iii. Flag at end? Let's push that to Thursday
-
-iv.  That's it? Wow
-
-
-
-On Thursday: Colors (DONE) + sound
+###File Structure
+* init.py
+* person.py
+* objects.py
+* board.py
+* config.py
+* requirements.txt
+* README.md
