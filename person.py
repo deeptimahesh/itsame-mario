@@ -35,6 +35,9 @@ class Person(object):
     def get_ycoords(self):
         return self._y
 
+    def get_xcoords(self):
+        return self._x
+
     def update_location(self, board, new_x, new_y, init=False):
         # update the location of the person
         if board.draw_obj(type(self)(new_x, new_y)):

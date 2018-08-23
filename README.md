@@ -37,4 +37,4 @@ iv.  That's it? Wow
 
 
 
-On Thursday: Colors + sound
+On Thursday: Colors (DONE) + sound

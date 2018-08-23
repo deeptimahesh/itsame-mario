@@ -41,15 +41,15 @@ class Mega:
         question, question[:, :] = np.chararray((q_height, q_width)), config._question
         pipe, pipe[:, :] = np.chararray((p_height, p_width)), config._pipe
 
-        self._b[-12:-10, 24:24 + q_width] = question
+        self._b[-10:-8, 24:24 + q_width] = question
 
-        self._b[-12:-10, 39:39 + b_width] = brick
-        self._b[-12:-10, 42:42 + q_width] = question
-        self._b[-12:-10, 45:45 + b_width] = brick
-        self._b[-12:-10, 48:48 + q_width] = question
-        self._b[-12:-10, 51:51 + b_width] = brick
+        self._b[-10:-8, 39:39 + b_width] = brick
+        self._b[-10:-8, 42:42 + q_width] = question
+        self._b[-10:-8, 45:45 + b_width] = brick
+        self._b[-10:-8, 48:48 + q_width] = question
+        self._b[-10:-8, 51:51 + b_width] = brick
 
-        self._b[-18:-16, 45:45 + q_width] = question
+        self._b[-16:-14, 45:45 + q_width] = question
 
         self._b[-2-p_height:-2, 63:63+p_width] = pipe
 
@@ -66,22 +66,22 @@ class Mega:
         self._b[-2 - p_height:-2, 99:99 + p_width] = pipe
         self._b[-2 - p_height:-2, 117:117 + p_width] = pipe
 
-        self._b[-12:-10, 138:138 + b_width] = brick
+        self._b[-10:-8, 138:138 + b_width] = brick
         self._b[-2:, 147:147+w_width] = noground
         self._b[-2:, 150:150 + w_width] = noground
         self._b[-2:, 153:153 + w_width] = noground
 
-        self._b[-18:-16, 160:160 + b_width] = brick
-        self._b[-18:-16, 163:163 + b_width] = brick
-        self._b[-18:-16, 166:166 + b_width] = brick
+        self._b[-16:-14, 160:160 + b_width] = brick
+        self._b[-16:-14, 163:163 + b_width] = brick
+        self._b[-16:-14, 166:166 + b_width] = brick
 
-        self._b[-18:-16, 177:177 + b_width] = brick
-        self._b[-18:-16, 180:180 + q_width] = question
-        self._b[-18:-16, 183:183 + q_width] = question
-        self._b[-18:-16, 186:186 + b_width] = brick
+        self._b[-16:-14, 177:177 + b_width] = brick
+        self._b[-16:-14, 180:180 + q_width] = question
+        self._b[-16:-14, 183:183 + q_width] = question
+        self._b[-16:-14, 186:186 + b_width] = brick
 
-        self._b[-12:-10, 174:174 + b_width] = brick
-        self._b[-12:-10, 177:177 + b_width] = brick
+        self._b[-10:-8, 174:174 + b_width] = brick
+        self._b[-10:-8, 177:177 + b_width] = brick
 
         for i in range(5):
             self._b[-2 - b_height:-2, 207 + (3*i):207 + (3*i) + b_width] = brick
@@ -112,10 +112,10 @@ class Mega:
         pipe, pipe[:, :] = np.chararray((p_height, p_width)), config._pipe
         self._b[-2 - p_height:-2, 267:267 + p_width] = pipe
 
-        self._b[-12:-10, 279 + 6:279  + 6 + b_width] = brick
-        self._b[-12:-10, 282 + 6:282 + 6 + b_width] = brick
-        self._b[-12:-10, 285 + 6:285 + 6 + q_width] = question
-        self._b[-12:-10, 288 + 6:288 + 6 + b_width] = brick
+        self._b[-10:-8, 279 + 6:279  + 6 + b_width] = brick
+        self._b[-10:-8, 282 + 6:282 + 6 + b_width] = brick
+        self._b[-10:-8, 285 + 6:285 + 6 + q_width] = question
+        self._b[-10:-8, 288 + 6:288 + 6 + b_width] = brick
 
         p = Pipe(4, 6)
         p_height, p_width = p.get_size()
