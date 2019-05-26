@@ -1,5 +1,4 @@
-# Python terminal Super Mario Bros
-## itsame-mario
+## Terminal Super Mario Bros 
 
 ### Introduction
 This game has been written using common Python libraries and also, __Numpy__ library for 
